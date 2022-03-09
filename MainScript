@@ -142,8 +142,7 @@ PageContainer.Parent = Main
     function InsideUi:CreatePage(TabName,SearchBar)
         TabName = TabName or "Tab"
         SearchBar = SearchBar or false
-        print(SearchBar)
-        local Tab = Instance.new("TextButton")
+	local Tab = Instance.new("TextButton")
         local Page = Instance.new("Frame")
         local Display = Instance.new("ScrollingFrame")
         local DisplayListLayout = Instance.new("UIListLayout")
