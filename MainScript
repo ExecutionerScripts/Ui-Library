@@ -139,10 +139,10 @@ PageContainer.Parent = Main
 
     local InsideUi = {}
 
-    function InsideUi:CreatePage(TabName,SearchBar)
+    function InsideUi:CreatePage(TabName,SearchBar,IsMainPage)
         TabName = TabName or "Tab"
         SearchBar = SearchBar or false
-	local Tab = Instance.new("TextButton")
+        local Tab = Instance.new("TextButton")
         local Page = Instance.new("Frame")
         local Display = Instance.new("ScrollingFrame")
         local DisplayListLayout = Instance.new("UIListLayout")
@@ -176,7 +176,10 @@ Page.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 Page.BorderSizePixel = 0
 Page.Position = UDim2.new(0.348088533, 0, 0.118749999, 0)
 Page.Size = UDim2.new(0, 315, 0, 275)
-
+Page.Visible = false
+if IsMainPage == true then
+    Page.Visible = true
+end
 Display.Name = "Display"
 Display.Parent = Page
 Display.Active = true
@@ -270,7 +273,10 @@ Page.BackgroundColor3 = Color3.fromRGB(35, 35, 35)
 Page.BorderSizePixel = 0
 Page.Position = UDim2.new(0.348088533, 0, 0.118749999, 0)
 Page.Size = UDim2.new(0, 315, 0, 275)
-
+Page.Visible = false
+if IsMainPage == true then
+    Page.Visible = true
+end
 Display.Name = "Display"
 Display.Parent = Page
 Display.Active = true
@@ -453,8 +459,10 @@ Toggle.MouseButton1Click:Connect(function ()
     Enabled = not Enabled
     if Enabled == true then
         game:GetService("TweenService"):Create(Color,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
+        pcall(Callback,Enabled)
         else
         game:GetService("TweenService"):Create(Color,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
+        pcall(Callback,Enabled)
     end
 
     pcall(Callback,Enabled)
@@ -464,4 +472,3 @@ return Components
     end
     return InsideUi
 end 
-return Ui
