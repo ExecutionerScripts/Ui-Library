@@ -333,15 +333,15 @@ callback = callback or function() end
 local Slider = Instance.new("Frame")
 local Name = Instance.new("TextLabel")
 local MinAndMax = Instance.new("TextLabel")
-local Background = Instance.new("Frame")
 local MainSlider = Instance.new("TextButton")
+local Background = Instance.new("Frame")
 
 Slider.Name = SliderName
 Slider.Parent = Display
 Slider.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
 Slider.BorderSizePixel = 0
 Slider.Position = UDim2.new(0.362173051, 0, 0.621874988, 0)
-Slider.Size = UDim2.new(0, 298, 0, 35)
+Slider.Size = UDim2.new(0, 298, 0, 38)
 
 Name.Name = "Name"
 Name.Parent = Slider
@@ -365,29 +365,30 @@ MinAndMax.BorderSizePixel = 0
 MinAndMax.Position = UDim2.new(0.801346779, 0, 0, 0)
 MinAndMax.Size = UDim2.new(0, 59, 0, 20)
 MinAndMax.Font = Enum.Font.SourceSansBold
-MinAndMax.Text = "100"
+MinAndMax.Text = "0"
 MinAndMax.TextColor3 = Color3.fromRGB(255, 255, 255)
 MinAndMax.TextSize = 18.000
 MinAndMax.TextWrapped = true
 MinAndMax.TextXAlignment = Enum.TextXAlignment.Left
 
-Background.Name = "Background"
-Background.Parent = Slider
-Background.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
-Background.BorderSizePixel = 0
-Background.Position = UDim2.new(0, 0, 0.689999998, 0)
-Background.Size = UDim2.new(0, 297, 0, 5)
-
 MainSlider.Name = "MainSlider"
-MainSlider.Parent = Background
-MainSlider.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+MainSlider.Parent = Slider
+MainSlider.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
 MainSlider.BorderSizePixel = 0
-MainSlider.Position = UDim2.new(0, 0, -0.0394737124, 0)
+MainSlider.Position = UDim2.new(0, 0, 0.689999998, 0)
 MainSlider.Size = UDim2.new(0, 297, 0, 5)
 MainSlider.Font = Enum.Font.SourceSans
 MainSlider.Text = ""
 MainSlider.TextColor3 = Color3.fromRGB(0, 0, 0)
 MainSlider.TextSize = 14.000
+MainSlider.AutoButtonColor = false
+
+Background.Name = "Background"
+Background.Parent = MainSlider
+Background.BackgroundColor3 = Color3.fromRGB(0, 255, 0)
+Background.BorderSizePixel = 0
+Background.Position = UDim2.new(0, 0, -0.0394737124, 0)
+Background.Size = UDim2.new(0, 297, 0, 5)
 
 
 -----Variables-----
@@ -401,14 +402,14 @@ MinAndMax.Text = maxvalue
 -----Main Code-----
 
 MainSlider.MouseButton1Down:Connect(function()
-	Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 297) * MainSlider.AbsoluteSize.X) + tonumber(minvalue)) or 0
-	MainSlider.Size = UDim2.new(0, math.clamp(mouse.X - MainSlider.AbsolutePosition.X, 0, 297), 0, 5)
+	Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 297) * Background.AbsoluteSize.X) + tonumber(minvalue)) or 0
+	Background.Size = UDim2.new(0, math.clamp(mouse.X - Background.AbsolutePosition.X, 0, 297), 0, 5)
     pcall(function()
 		callback(Value)
 	end)
 	moveconnection = mouse.Move:Connect(function()
-		Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 297) * MainSlider.AbsoluteSize.X) + tonumber(minvalue))
-		MainSlider.Size = UDim2.new(0, math.clamp(mouse.X - MainSlider.AbsolutePosition.X, 0, 297), 0, 5)
+		Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 297) * Background.AbsoluteSize.X) + tonumber(minvalue))
+		Background.Size = UDim2.new(0, math.clamp(mouse.X - Background.AbsolutePosition.X, 0, 297), 0, 5)
         MinAndMax.Text = Value
         pcall(function()
 			callback(Value)
@@ -416,8 +417,8 @@ MainSlider.MouseButton1Down:Connect(function()
 	end)
 	releaseconnection = uis.InputEnded:Connect(function(Mouse)
 		if Mouse.UserInputType == Enum.UserInputType.MouseButton1 then
-			Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 297) * MainSlider.AbsoluteSize.X) + tonumber(minvalue))
-			MainSlider.Size = UDim2.new(0, math.clamp(mouse.X - MainSlider.AbsolutePosition.X, 0, 297), 0, 5)
+			Value = math.floor((((tonumber(maxvalue) - tonumber(minvalue)) / 297) * Background.AbsoluteSize.X) + tonumber(minvalue))
+			Background.Size = UDim2.new(0, math.clamp(mouse.X - Background.AbsolutePosition.X, 0, 297), 0, 5)
             MinAndMax.Text = Value
             pcall(function()
 				callback(Value)
