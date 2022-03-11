@@ -324,6 +324,23 @@ end)
 
 end
 
+function Components:CreateLabel(LabelName)
+    
+local Label = Instance.new("TextLabel")
+
+Label.Name = LabelName
+Label.Parent = Display
+Label.BackgroundColor3 = Color3.fromRGB(56, 56, 56)
+Label.BorderColor3 = Color3.fromRGB(27, 42, 53)
+Label.BorderSizePixel = 0
+Label.Position = UDim2.new(0.362173051, 0, 0.425000012, 0)
+Label.Size = UDim2.new(0, 300, 0, 30)
+Label.Font = Enum.Font.SourceSansBold
+Label.TextColor3 = Color3.fromRGB(255, 255, 255)
+Label.TextSize = 24.000
+Label.Text = LabelName
+end
+
 function Components:CreateSlider(SliderName,minvalue,maxvalue,callback)
 SliderName = SliderName or "Slider"
 minvalue = minvalue or 16
