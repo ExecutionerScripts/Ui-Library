@@ -262,6 +262,8 @@ Tab.TextColor3 = Color3.fromRGB(255, 255, 255)
 Tab.TextSize = 22.000
 Tab.Text = TabName
 Tab.MouseButton1Click:Connect(function ()
+    Tab.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+    game:GetService("TweenService"):Create(Tab,TweenInfo.new(0.15,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,true),{Size = UDim2.new(0, 121,0, 31)}):Play()
     for i , v in pairs(PageContainer:GetChildren()) do
         v.Visible = false
     end
