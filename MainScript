@@ -163,8 +163,18 @@ Tab.TextColor3 = Color3.fromRGB(255, 255, 255)
 Tab.TextSize = 22.000
 Tab.Text = TabName
 Tab.MouseButton1Click:Connect(function ()
+    for i , v in pairs(TabButtons:GetChildren()) do
+        if v:IsA("TextButton") then
+            v.BackgroundColor3 = Color3.fromRGB(15,15,15)
+        end
+    end
+    Tab.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
+    game:GetService("TweenService"):Create(Tab,TweenInfo.new(0.15,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false),{Size = UDim2.new(0, 121,0, 31)}):Play()
+    wait(0.15)
+    game:GetService("TweenService"):Create(Tab,TweenInfo.new(0.15,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false),{Size = UDim2.new(0, 127, 0, 35)}):Play()
+    wait(0.15)
     for i , v in pairs(PageContainer:GetChildren()) do
-            v.Visible = false        
+        v.Visible = false
     end
     Page.Visible = true
 end)
@@ -262,8 +272,16 @@ Tab.TextColor3 = Color3.fromRGB(255, 255, 255)
 Tab.TextSize = 22.000
 Tab.Text = TabName
 Tab.MouseButton1Click:Connect(function ()
+    for i , v in pairs(TabButtons:GetChildren()) do
+        if v:IsA("TextButton") then
+            v.BackgroundColor3 = Color3.fromRGB(15,15,15)
+        end
+    end
     Tab.BackgroundColor3 = Color3.fromRGB(22, 22, 22)
-    game:GetService("TweenService"):Create(Tab,TweenInfo.new(0.15,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,true),{Size = UDim2.new(0, 121,0, 31)}):Play()
+    game:GetService("TweenService"):Create(Tab,TweenInfo.new(0.15,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false),{Size = UDim2.new(0, 121,0, 31)}):Play()
+    wait(0.15)
+    game:GetService("TweenService"):Create(Tab,TweenInfo.new(0.15,Enum.EasingStyle.Linear,Enum.EasingDirection.Out,0,false),{Size = UDim2.new(0, 127, 0, 35)}):Play()
+    wait(0.15)
     for i , v in pairs(PageContainer:GetChildren()) do
         v.Visible = false
     end
@@ -589,3 +607,4 @@ return Components
     return InsideUi
 end 
 return Ui
+
