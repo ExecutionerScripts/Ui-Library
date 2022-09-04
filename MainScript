@@ -3,8 +3,8 @@ local Saves = {}
 if not isfolder("Executioner") then
     makefolder("Executioner")
 end
-if not isfile("Excutioner/".."Settings.json") then
-    writefile("Excutioner/".."Settings.json","{}")
+if not isfile("Executioner/".."Settings.json") then
+    writefile("Executioner/".."Settings.json","{}")
 end
 function Ui:Load(Name)
 Name = Name or "HubName"
@@ -12,7 +12,7 @@ if game.CoreGui:FindFirstChild(Name) then
     game.CoreGui:FindFirstChild(Name):Destroy()
 end
 pcall(function()
-    Saves = game:GetService("HttpService"):JSONDecode(readfile("Excutioner/".."Settings.json"))
+    Saves = game:GetService("HttpService"):JSONDecode(readfile("Executioner/".."Settings.json"))
 end)
 local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
