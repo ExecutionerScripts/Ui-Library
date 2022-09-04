@@ -3,8 +3,8 @@ local Saves = {}
 if not isfolder("Executioner") then
     makefolder("Executioner")
 end
-if not isfile("Excutioner/".."Settings.json") then
-    writefile("Excutioner/".."Settings.json","fr")
+if not isfile("Executioner/".."Settings.json") then
+    writefile("Executioner/".."Settings.json","{}")
 end
 function Ui:Load(Name)
 Name = Name or "HubName"
