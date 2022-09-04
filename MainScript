@@ -4,7 +4,7 @@ if not isfolder("Executioner") then
     makefolder("Executioner")
 end
 if not isfile("Excutioner/".."Settings.json") then
-    writefile("Excutioner/".."Settings.json","{}")
+    writefile("Excutioner/".."Settings.json","fr")
 end
 function Ui:Load(Name)
 Name = Name or "HubName"
