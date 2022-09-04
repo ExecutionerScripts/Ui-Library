@@ -1,10 +1,19 @@
 local Ui = {}
-
+local Saves = {}
+if not isfolder("Executioner") then
+    makefolder("Executioner")
+end
+if not isfile("Excutioner/".."Settings.json") then
+    writefile("Excutioner/".."Settings.json","{}")
+end
 function Ui:Load(Name)
 Name = Name or "HubName"
 if game.CoreGui:FindFirstChild(Name) then
     game.CoreGui:FindFirstChild(Name):Destroy()
 end
+pcall(function()
+    Saves = game:GetService("HttpService"):JSONDecode(readfile("Excutioner/".."Settings.json"))
+end)
 local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local Topbar = Instance.new("TextLabel")
@@ -138,6 +147,7 @@ PageContainer.Parent = Main
 
 
     local InsideUi = {}
+    local Settings = {}
 
     function InsideUi:CreatePage(TabName,SearchBar,IsMainPage)
         TabName = TabName or "Tab"
@@ -565,7 +575,19 @@ end
 function Components:CreateToggle(ToggleName,Callback)
     ToggleName = ToggleName or "Toggle"
     Callback  = Callback or function () end
-    local Enabled = false
+    Settings[ToggleName] = false
+    local Enabled = (Saves[ToggleName] and true) or Settings[ToggleName] or false
+    function Ui:Set(Bool,i)
+        if Bool == true then
+            game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
+        else
+            game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
+        end
+        Settings[name] = Bool
+        pcall(Callback,Bool)
+        writefile("Executioner/".."Settings.json",game:GetService("HttpService"):JSONEncode(Settings))
+    end
+
     local Toggle = Instance.new("TextButton")
 local Color = Instance.new("Frame")
 Toggle.Name = ToggleName
@@ -589,17 +611,9 @@ Color.Position = UDim2.new(0, 0, 1, 0)
 Color.Size = UDim2.new(0, 301, 0, 2)
 Toggle.MouseButton1Click:Connect(function ()
     Enabled = not Enabled
-    if Enabled == true then
-        game:GetService("TweenService"):Create(Color,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
-        pcall(Callback,Enabled)
-        else
-        game:GetService("TweenService"):Create(Color,TweenInfo.new(0.3),{BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
-        pcall(Callback,Enabled)
-    end
-
-    pcall(Callback,Enabled)
+Ui:Set(Enabled,Color)
 end)
-
+Ui:Set(Enabled,Color)
 end
 
 return Components
