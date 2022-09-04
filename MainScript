@@ -3,8 +3,8 @@ local Saves = {}
 if not isfolder("Executioner") then
     makefolder("Executioner")
 end
-if not isfile("Executioner/".."Settings.json") then
-    writefile("Executioner/".."Settings.json","{}")
+if not isfile("Excutioner/".."Settings.json") then
+    writefile("Excutioner/".."Settings.json","{}")
 end
 function Ui:Load(Name)
 Name = Name or "HubName"
@@ -583,7 +583,7 @@ function Components:CreateToggle(ToggleName,Callback)
         else
             game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
         end
-        Settings[name] = Bool
+        Settings[ToggleName] = Bool
         pcall(Callback,Bool)
         writefile("Executioner/".."Settings.json",game:GetService("HttpService"):JSONEncode(Settings))
     end
