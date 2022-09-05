@@ -1,4 +1,5 @@
 local Ui = {}
+local Settings = {}
 local Saves = {}
 if not isfolder("Executioner") then
     makefolder("Executioner")
@@ -570,7 +571,6 @@ end)
 end
 
 end
-local Settings = {}
 
 function Components:CreateToggle(ToggleName,Callback)
     ToggleName = ToggleName or "Toggle"
