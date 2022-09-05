@@ -11,6 +11,7 @@ Name = Name or "HubName"
 if game.CoreGui:FindFirstChild(Name) then
     game.CoreGui:FindFirstChild(Name):Destroy()
 end
+print("loaded")
 pcall(function()
     Saves = game:GetService("HttpService"):JSONDecode(readfile("Executioner/".."Settings.json"))
 end)
@@ -147,7 +148,6 @@ PageContainer.Parent = Main
 
 
     local InsideUi = {}
-    local Settings = {}
 
     function InsideUi:CreatePage(TabName,SearchBar,IsMainPage)
         TabName = TabName or "Tab"
@@ -571,6 +571,7 @@ end)
 end
 
 end
+local Settings = {}
 
 function Components:CreateToggle(ToggleName,Callback)
     ToggleName = ToggleName or "Toggle"
@@ -621,4 +622,3 @@ return Components
     return InsideUi
 end 
 return Ui
-
