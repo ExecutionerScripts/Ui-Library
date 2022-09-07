@@ -20,7 +20,7 @@ Name = Name or "HubName"
 if game.CoreGui:FindFirstChild(Name) then
     game.CoreGui:FindFirstChild(Name):Destroy()
 end
-function Ui:Set(bool,i,name1,callback)
+function Ui:Set(bool,i,name1)
     if bool == false then
         game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(252, 48, 3)}):Play()
     else
@@ -28,7 +28,6 @@ function Ui:Set(bool,i,name1,callback)
     end
     Settings[name1] = bool
     SaveSettings()
-    pcall(callback,bool)
 end
 
 local ScreenGui = Instance.new("ScreenGui")
@@ -619,8 +618,10 @@ Color.Size = UDim2.new(0, 301, 0, 2)
 Toggle.MouseButton1Click:Connect(function ()
     Enabled = not Enabled
 Ui:Set(Enabled,Color,ToggleName,Callback)
+pcall(Callback,Enabled)
 end)
 Ui:Set(Enabled,Color,ToggleName,Callback)
+pcall(Callback,Enabled)
 end
 
 return Components
