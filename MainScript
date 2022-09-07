@@ -15,6 +15,7 @@ end)
 function SaveSettings()
     writefile("Executioner/"..tostring(game.PlaceId) .."Settings.json",game:GetService("HttpService"):JSONEncode(Settings))
 end
+print("started")
 function Ui:Load(Name)
 Name = Name or "HubName"
 if game.CoreGui:FindFirstChild(Name) then
