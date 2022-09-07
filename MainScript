@@ -4,17 +4,33 @@ local Saves = {}
 if not isfolder("Executioner") then
     makefolder("Executioner")
 end
-if not isfile("Executioner/".."Settings.json") then
-    writefile("Executioner/".."Settings.json","{}")
+if not isfile("Executioner/"..tostring(game.PlaceId) .."Settings.json") then
+    writefile("Executioner/"..tostring(game.PlaceId) .."Settings.json","{}")
+end
+pcall(function()    
+    if isfile("Executioner/"..tostring(game.PlaceId) .."Settings.json") then
+    Saves = game:GetService("HttpService"):JSONDecode(readfile("Executioner/"..tostring(game.PlaceId) .."Settings.json"))
+    end
+end)
+function SaveSettings()
+    writefile("Executioner/"..tostring(game.PlaceId) .."Settings.json",game:GetService("HttpService"):JSONEncode(Settings))
 end
 function Ui:Load(Name)
 Name = Name or "HubName"
 if game.CoreGui:FindFirstChild(Name) then
     game.CoreGui:FindFirstChild(Name):Destroy()
 end
-pcall(function()
-    Saves = game:GetService("HttpService"):JSONDecode(readfile("Executioner/".."Settings.json"))
-end)
+function Ui:Set(bool,i,name1)
+    if bool == false then
+        game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(252, 48, 3)}):Play()
+    else
+        game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(0, 186, 21)}):Play()
+    end
+    Settings[name1] = bool
+    SaveSettings()
+    pcall(callback,bool)
+end
+
 local ScreenGui = Instance.new("ScreenGui")
 local Main = Instance.new("Frame")
 local Topbar = Instance.new("TextLabel")
@@ -576,17 +592,8 @@ function Components:CreateToggle(ToggleName,Callback)
     ToggleName = ToggleName or "Toggle"
     Callback  = Callback or function () end
     Settings[ToggleName] = false
-    local Enabled = (Saves[ToggleName] and true) or Settings[ToggleName] or false
-    function Ui:Set(Bool,i)
-        if Bool == true then
-            game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(0, 255, 0)}):Play()
-        else
-            game:GetService("TweenService"):Create(i,TweenInfo.new(0.25),{BackgroundColor3 = Color3.fromRGB(255, 0, 0)}):Play()
-        end
-        Settings[ToggleName] = Bool
-        pcall(Callback,Bool)
-        writefile("Executioner/".."Settings.json",game:GetService("HttpService"):JSONEncode(Settings))
-    end
+    local Enabled = Saves[ToggleName] and true or Settings[ToggleName] or false
+
 
     local Toggle = Instance.new("TextButton")
 local Color = Instance.new("Frame")
@@ -611,9 +618,9 @@ Color.Position = UDim2.new(0, 0, 1, 0)
 Color.Size = UDim2.new(0, 301, 0, 2)
 Toggle.MouseButton1Click:Connect(function ()
     Enabled = not Enabled
-Ui:Set(Enabled,Color)
+Ui:Set(Enabled,Color,ToggleName)
 end)
-Ui:Set(Enabled,Color)
+Ui:Set(Enabled,Color,ToggleName)
 end
 
 return Components
