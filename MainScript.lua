@@ -15,7 +15,6 @@ end)
 function SaveSettings()
     writefile("Executioner/"..tostring(game.PlaceId) .."Settings.json",game:GetService("HttpService"):JSONEncode(Settings))
 end
-print("started")
 function Ui:Load(Name)
 Name = Name or "HubName"
 if game.CoreGui:FindFirstChild(Name) then
@@ -619,10 +618,14 @@ Color.Size = UDim2.new(0, 301, 0, 2)
 Toggle.MouseButton1Click:Connect(function ()
     Enabled = not Enabled
 Ui:Set(Enabled,Color,ToggleName,Callback)
-pcall(Callback,Enabled)
+spawn(function()
+    pcall(Callback,Enabled)
+end)
 end)
 Ui:Set(Enabled,Color,ToggleName,Callback)
+spawn(function()
 pcall(Callback,Enabled)
+end)
 end
 
 return Components
